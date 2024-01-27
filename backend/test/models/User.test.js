@@ -5,15 +5,15 @@ const exp = require("constants");
 const dotenv = require("dotenv");
 const path = require("path");
 
-// Load environment variables from the specified .env file
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
-
-const MONGODB_URI = process.env.MONGODB_URI;
-console.log(MONGODB_URI);
 import("chai").then((chai) => {
   const expect = chai.expect;
 });
 
+// Load environment variables from the specified .env file
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// Test suite
 describe("User Model Test", () => {
   before(async () => {
     await mongoose.connect(MONGODB_URI);
