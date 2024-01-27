@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // import routes here
-const userRoutes = require("./routes/user.route");
+const userRoutes = require("./routes/userRoutes.js");
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI;
