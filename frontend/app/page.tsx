@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Login from "@/components/login";
 import {Main} from "@/components/main";

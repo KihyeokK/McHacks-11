@@ -1,8 +1,11 @@
+"use client"
+import React, { useState } from 'react';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Header from "@/components/Header";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/BottomNavBar";
 export function Friends() {
+  const [isVisible, setIsVisible] = useState(true);
   return (
     <div className="bg-white min-h-screen">
       <Header/>
@@ -11,57 +14,30 @@ export function Friends() {
           <Input className="w-full" placeholder="username" type="text" />
         </div>
         <section>
-          <h2 className="mb-2 font-semibold">REQUESTS</h2>
-          <div className="flex items-center justify-between mb-4">
-            <span>username</span>
-            <div className="flex space-x-2">
-              <Button className="bg-green-500 text-white">ACCEPT</Button>
-              <XIcon className="h-6 w-6" />
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="mb-2 font-semibold">MY FRIENDS</h2>
-          <div className="flex items-center justify-between mb-4">
-            <span>username</span>
-            <XIcon className="h-6 w-6" />
-          </div>
-        </section>
-        <section>
-          <h2 className="mb-2 font-semibold">SEARCH RESULTS</h2>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
+          <h2 className="mb-2 font-semibold text-gray-500">REQUESTS</h2>
+          {isVisible && (
+            <div className="flex items-center justify-between mb-4 text-black">
               <span>username1</span>
-                <div className="self-stretch rounded border justify-between items-center inline-flex">
-                  <div className="text-indigo-950 text-sm font-normal font-['Rubik'] leading-[16.80px]">usernam2e</div>
-                    <div className="justify-end items-center gap-2 flex">
-                      <div className="px-1.5 py-0.5 bg-green-100 rounded-[10px] border border-green-100 justify-center items-center gap-2 flex">
-                        <div className="bg-green-600 bg-opacity-0 flex-col justify-center items-start inline-flex">
-                          <Button className="bg-green-500 text-white">ADD</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            <div className="flex items-center justify-between">
-              <span>username2</span>
-              <Button className="bg-green-500 text-white">ADD</Button>
+              <div className="flex items-center space-x-2">
+                <Button variant="green">ACCEPT</Button>
+                <XIcon className="h-6 w-6 text-gray-500" onClick={() => setIsVisible(false)} />
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span>username2</span>
-              <Button className="bg-green-500 text-white">ADD</Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>username2</span>
-              <Button className="bg-green-500 text-white">ADD</Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>username2</span>
-              <Button className="bg-green-500 text-white">ADD</Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>username2</span>
-              <Button className="bg-green-500 text-white">ADD</Button>
+          )}
+        </section>
+        <section>
+          <h2 className="mb-2 font-semibold text-gray-500">MY FRIENDS</h2>
+          <div className="flex items-center justify-between mb-4 text-black">
+            <span>username2</span>
+            <XIcon className="h-6 w-6 text-gray-500"/>
+          </div>
+        </section>
+        <section>
+          <h2 className="mb-2 font-semibold text-gray-500">SEARCH RESULTS</h2>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-black">
+              <span>username3</span>
+                <Button variant="green">ADD</Button>
             </div>
           </div>
         </section>
@@ -81,15 +57,14 @@ function XIcon(props) {
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      viewBox="0 24"
+      viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M18 6 18" />
-      <path d="m6 6 12" />
+      <path d="M6 18L18 6M6 6l12 12" />
     </svg>
   )
 }

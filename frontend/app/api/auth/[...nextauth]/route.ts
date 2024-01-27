@@ -6,8 +6,14 @@ export const authOptions = {
         GitHubProvider({
             clientId: process.env.GITHUB_ID ?? "",
             clientSecret: process.env.GITHUB_SECRET ?? "",
+            authorization: {
+                params: {
+                prompt: "consent",
+                },
+            },
         }),
     ],
+    database: process.env.DATABASE_URL,
 };
 
 export const handler = NextAuth(authOptions);
