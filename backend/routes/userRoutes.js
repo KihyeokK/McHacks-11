@@ -6,7 +6,7 @@ const userRouter = express.Router();
 // Remember that all api routes start with /api then specific routes like /users/:id
 
 // get all users
-//userRouter.get("/users", userController.getAllUsers);
+userRouter.get("/users", userController.getAllUsers);
 
 // get a specific user from database.
 userRouter.get("/users/:id", userController.getUser);
