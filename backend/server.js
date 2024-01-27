@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+    res.send("Hello World");
 });
 
 // put your routes here
@@ -25,11 +25,11 @@ app.get("/", (req, res) => {
 app.use("/api", userRoutes);
 
 mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("connected");
-    app.listen(PORT);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .connect(MONGODB_URI)
+    .then(() => {
+        console.log("connected");
+        app.listen(PORT);
+    })
+    .catch((err) => {
+        console.log(err);
+    });

@@ -1,8 +1,15 @@
 {
-  "dependencies": {
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongoose": "^8.0.1"
-  }
+    "name": "backend",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "mongoose": "^8.0.1",
+        "prettier": "^3.2.4"
+    },
+    "scripts": {
+        "start": "nodemon server.js",
+        "prettier-format": "prettier --config .prettierrc . --write",
+        "prettier-check-format": "prettier --config .prettierrc . --check"
+    }
 }
