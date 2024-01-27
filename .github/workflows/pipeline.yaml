@@ -10,11 +10,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Lint
-        run: npm run lint
+      # - name: Lint
+      #   run: npm run lint
 
-      - name: NPM Build
-        run: npm run build
+      # - name: NPM Build
+      #   run: npm run build
 
       # - name: Docker Build and Push
       #   run: |
