@@ -1,0 +1,25 @@
+name: Lint-Test-Build-Deploy
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Lint
+        run: npm run lint
+
+      - name: NPM Build
+        run: npm run build
+
+      # - name: Docker Build and Push
+      #   run: |
+      #     docker build -t kihyeokk/mchacks .
+      #     docker push kihyeokk/mchacks
+      #   env:
+      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
