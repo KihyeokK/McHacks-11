@@ -29,16 +29,12 @@ exports.uploadFile = (req, res) => {
   });
 };
 
-exports.getFile = (req, res) => {
-  console.log(req.params.filename);
-  gfs.find({ filename: req.params.filename }).toArray((err, files) => {
-    console.log(files);
-    if (err) {
-      return res.status(500).json({ message: "Error retrieving file" });
-    } else if (!files || files.length === 0) {
+exports.getFile = async (req, res) => {
+  let returnedFile = await gfs.find({ filename: req.params.filename });
+  returnedFile.toArray().then((files, err) => {
+    if (!files || files.length === 0) {
       return res.status(404).json({ message: "File not found" });
     }
-    const readstream = gfs.openDownloadStreamByName(req.params.filename);
-    readstream.pipe(res);
+    gfs.openDownloadStreamByName(req.params.filename).pipe(res);
   });
 };
