@@ -15,12 +15,9 @@ userRouter.get("/users/:id", userController.getUser);
 userRouter.get("/users/:userID/friends", userController.getFriends);
 
 // add friend
-userRouter.post("/users/:userID/friends/:friendID", userController.addFriend);
+userRouter.post("/users/friends", userController.addFriend);
 
 // remove friend
-userRouter.delete(
-    "/users/:userID/friends/:friendID",
-    userController.removeFriend
-);
+userRouter.delete("/users/removeFriend", userController.removeFriend);
 
 module.exports = userRouter;

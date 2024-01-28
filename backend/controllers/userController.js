@@ -1,9 +1,11 @@
 // import User model
-// const User = require("../models/User");
+const User = require("../models/User");
 
 exports.createUser = async (req, res) => {
     try {
         const { username, password, email } = req.body;
+        console.log(req.body);
+        console.log(username, password, email);
         const user = new User({
             username: username,
             password: password,
@@ -40,8 +42,10 @@ exports.getFriends = async (req, res) => {
 };
 exports.addFriend = async (req, res) => {
     try {
-        const friend = await User.findOne({ userID: req.params.friendID });
-        const user = await User.findOne({ userID: req.params.userID });
+        const friendID = req.body.friendID;
+        const userID = req.body.userID;
+        const friend = await User.findOne({ _id: friendID });
+        const user = await User.findOne({ _id: userID });
         user.friends.push(friend);
         res.status(200).json({ user });
     } catch (err) {
@@ -50,8 +54,11 @@ exports.addFriend = async (req, res) => {
 };
 exports.removeFriend = async (req, res) => {
     try {
-        const friend = await User.findOne({ userID: req.params.friendID });
-        const user = await User.findOne({ userID: req.params.userID });
+        console.log(req.body);
+        const friendID = req.body.friendID;
+        const userID = req.body.userID;
+        const friend = await User.findOne({ _id: friendID });
+        const user = await User.findOne({ _id: userID });
         user.friends.remove(friend);
         res.status(200).json({ user });
     } catch (err) {

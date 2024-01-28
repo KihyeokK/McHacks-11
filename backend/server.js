@@ -15,6 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
@@ -35,3 +38,5 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
+
+module.exports = app;
