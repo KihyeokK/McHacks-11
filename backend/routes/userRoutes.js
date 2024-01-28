@@ -23,4 +23,7 @@ userRouter.delete(
     userController.removeFriend
 );
 
+// add image to user
+userRouter.post("/users/:userID/images", userController.addImage);
+
 module.exports = userRouter;
