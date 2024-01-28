@@ -40,8 +40,10 @@ exports.getFriends = async (req, res) => {
 };
 exports.addFriend = async (req, res) => {
     try {
-        const friend = await User.findOne({ userID: req.params.friendID });
-        const user = await User.findOne({ userID: req.params.userID });
+        const friendID = req.body.friendID;
+        const userID = req.body.userID;
+        const friend = await User.findOne({ _id: friendID });
+        const user = await User.findOne({ _id: userID });
         user.friends.push(friend);
         res.status(200).json({ user });
     } catch (err) {
@@ -50,8 +52,10 @@ exports.addFriend = async (req, res) => {
 };
 exports.removeFriend = async (req, res) => {
     try {
-        const friend = await User.findOne({ userID: req.params.friendID });
-        const user = await User.findOne({ userID: req.params.userID });
+        const friendID = req.body.friendID;
+        const userID = req.body.userID;
+        const friend = await User.findOne({ _id: friendID });
+        const user = await User.findOne({ _id: userID });
         user.friends.remove(friend);
         res.status(200).json({ user });
     } catch (err) {

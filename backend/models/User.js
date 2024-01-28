@@ -9,7 +9,7 @@ const userSchema = new Schema({
     images: [
         { type: mongoose.Schema.Types.ObjectId, ref: "Image", required: true }
     ],
-    goal: [
+    goals: [
         { type: mongoose.Schema.Types.ObjectId, ref: "Goal", required: true }
     ],
     friends: [
