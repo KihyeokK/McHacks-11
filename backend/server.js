@@ -6,6 +6,7 @@ require("dotenv").config();
 // import routes here
 const userRoutes = require("./routes/userRoutes.js");
 const fileUploadRoutes = require("./routes/photosRoute.js");
+const goalRoutes = require("./routes/goalRoutes.js");
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 // example endpoint: /api/users/:id
 app.use("/api", userRoutes);
 app.use("/api", fileUploadRoutes);
+app.use("/api", goalRoutes);
 
 mongoose
     .connect(MONGODB_URI)
@@ -35,3 +37,5 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
+
+module.exports = app;

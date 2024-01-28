@@ -6,9 +6,15 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     numCompletedCollages: { type: Number, required: true },
-    images: { type: Array, required: true },
-    goal: { type: Array, required: true, ref: "Goal" },
-    friends: { type: Array, required: true, ref: "User" }
+    images: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "Image", required: true }
+    ],
+    goal: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "Goal", required: true }
+    ],
+    friends: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
+    ]
 });
 
 /**
