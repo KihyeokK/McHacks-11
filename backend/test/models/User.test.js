@@ -14,65 +14,120 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Test suite
-describe("User Model Test", () => {
+describe("User add Test, where numcompleted, groups, friends are default value", () => {
     before(async () => {
         await mongoose.connect(MONGODB_URI);
     });
     after(async () => {
-        await mongoose.connection.close();
-    });
-    it("should not be allowed to create a user without required fields", async () => {
-        const user = new User();
-        user.validate((err) => {
-            expect(err.errors.userID).to.exist;
-            expect(err.errors.username).to.exist;
-            expect(err.errors.password).to.exist;
-            expect(err.errors.email).to.exist;
-            expect(err.errors.numCompletedCollages).to.exist;
-        });
-    });
-});
-
-describe("User add Test", () => {
-    before(async () => {
-        await mongoose.connect(MONGODB_URI);
-    });
-    after(async () => {
+        await User.findOneAndDelete({ username: "test" });
         await mongoose.connection.close();
     });
     it("should add a user to the database", async () => {
         const user = new User({
-            username: "test1",
-            password: "test1",
-            email: "aa@b.com",
-            numCompletedCollages: 0
+            username: "test",
+            password: "test",
+            email: "a@b.com"
         });
         await user.save();
-        const foundUser = await User.findOne({ userID: "123" });
+        const foundUser = await User.findOne({ username: "test" });
         user.validate((err) => {
-            expect(foundUser.userID).to.equal("321");
             expect(foundUser.username).to.equal("test");
             expect(foundUser.password).to.equal("test");
             expect(foundUser.email).to.equal("a@b.com");
+            expect(foundUser.numCompletedCollages).to.equal(0);
+            expect(foundUser.group.length).to.equal(0);
+            expect(foundUser.friends.length).to.equal(0);
+            expect(foundUser.images.length).to.equal(0);
         });
-        await user.remove();
     });
 });
 
-describe("Goal Model Test", () => {
+describe("User remove Test", () => {
     before(async () => {
         await mongoose.connect(MONGODB_URI);
     });
     after(async () => {
         await mongoose.connection.close();
     });
-    it("should not be allowed to create a goal without required fields", async () => {
-        const goal = new Goal();
-        goal.validate((err) => {
-            expect(err.errors.goalID).to.exist;
-            expect(err.errors.goalName).to.exist;
-            expect(err.errors.goalDescription).to.exist;
-            expect(err.errors.users).to.exist;
+    it("should remove a user from the database", async () => {
+        const user = new User({
+            username: "remove",
+            password: "remove",
+            email: "remove@test.com"
+        });
+        await user.save();
+        await User.findOneAndDelete({ username: "remove" });
+        const foundUser = await User.findOne({ username: "remove" });
+        User.validate((err) => {
+            expect(foundUser).to.be.null;
+        });
+    });
+});
+
+describe("Add friend Test", () => {
+    before(async () => {
+        await mongoose.connect(MONGODB_URI);
+    });
+    after(async () => {
+        await User.findOneAndDelete({ username: "user_friend" });
+        await User.findOneAndDelete({ username: "friend" });
+        await mongoose.connection.close();
+    });
+    it("should add a friend to the database", async () => {
+        const user = new User({
+            username: "user_friend",
+            password: "user_friend",
+            email: "user_friend@friend.com"
+        });
+        const friend = new User({
+            username: "friend",
+            password: "friend",
+            email: "friend@friend.com"
+        });
+        await user.save();
+        await friend.save();
+        user.friends.push(friend);
+        await user.save();
+        const foundUser = await User.findOne({ username: "user_friend" });
+        const foundFriend = await User.findOne({ username: "friend" });
+        User.validate((err) => {
+            expect(foundUser.friends).to.include(foundFriend);
+        });
+    });
+});
+
+describe("Remove friend Test", () => {
+    before(async () => {
+        await mongoose.connect(MONGODB_URI);
+    });
+    after(async () => {
+        await User.findOneAndDelete({ username: "user_friend_remove" });
+        await User.findOneAndDelete({ username: "friend_remove" });
+        await mongoose.connection.close();
+    });
+    it("should remove a friend from the database", async () => {
+        const user = new User({
+            username: "user_friend_remove",
+            password: "user_friend_remove",
+            email: "user_friend_remove@friendRemove.com"
+        });
+        const friend = new User({
+            username: "friend_remove",
+            password: "friend_remove",
+            email: "friend_remove@friendRemove.com"
+        });
+        await user.save();
+        await friend.save();
+        user.friends.push(friend);
+        await user.save();
+        user.friends.remove(friend);
+        await user.save();
+        const foundUser = await User.findOne({
+            username: "user_friend_remove"
+        });
+        const foundFriend = await User.findOne({ username: "friend_remove" });
+        User.validate((err) => {
+            expect(foundUser.friends).to.not.include(foundFriend);
         });
     });
 });
