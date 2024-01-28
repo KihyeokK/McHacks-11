@@ -3,6 +3,9 @@ const { GridFSBucket } = require("mongodb");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
+const base64Img = require("base64-img");
+const { download } = require("ajax-request");
+const { buffer } = require("stream/consumers");
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -42,6 +45,22 @@ exports.getFile = async (req, res) => {
         if (!files || files.length === 0) {
             return res.status(404).json({ message: "File not found" });
         }
-        gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+        const buf = [];
+        const downloadStream = gfs.openDownloadStreamByName(
+            req.params.filename
+        );
+        downloadStream.on("data", (chunk) => {
+            buf.push(chunk);
+        });
+        downloadStream.on("end", () => {
+            const buffer = Buffer.concat(buf);
+            const file = buffer.toString("base64");
+            const imgSrcString = `data:image/png;base64,${file}`;
+            return res.status(200).json({ file: file });
+        });
+        downloadStream.on("error", (err) => {
+            console.log(err);
+            return res.status(500).json();
+        });
     });
 };
