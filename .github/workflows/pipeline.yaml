@@ -16,6 +16,19 @@ jobs:
       # - name: NPM Build
       #   run: npm run build
 
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install Prettier
+        run: |
+          cd backend
+          npm install prettier
+
+      - name: Prettier
+        run: |
+          cd backend
+          npm run-script prettier-check-format
+
       # - name: Docker Build and Push
       #   run: |
       #     docker build -t kihyeokk/mchacks .
