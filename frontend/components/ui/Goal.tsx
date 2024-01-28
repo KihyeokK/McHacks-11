@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Image from "next/image";
 import catImage from "../../../public/images/cat.jpg";
+import { FaPlus } from "react-icons/fa6";
 
 type GoalProps = {
   id: number;
@@ -57,13 +58,8 @@ export default function Goal({ id }: GoalProps) {
             alt="Empty state image"
           />
         </div>
-        <div className="aspect-w-1 aspect-h-1">
-          <Image
-            src="/images/cat1.png"
-            width={400}
-            height={400}
-            alt="Empty state image"
-          />
+        <div className="aspect-w-1 aspect-h-1 border-dashed border-4 h-160px p-2 text-2xl">
+          <FaPlus className="m-14"/>
         </div>
       </div>
 
