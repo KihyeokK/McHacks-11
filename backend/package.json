@@ -16,9 +16,11 @@
         "start": "nodemon server.js",
         "prettier-format": "prettier --config .prettierrc . --write",
         "prettier-check-format": "prettier --config .prettierrc . --check",
-        "test": "mocha --recursive --exit"
+        "test": "mocha --timeout 10000 --exit --recursive"
     },
     "devDependencies": {
-        "mocha": "^10.2.0"
+        "chai": "^5.0.3",
+        "mocha": "^10.2.0",
+        "supertest": "^6.3.4"
     }
 }
