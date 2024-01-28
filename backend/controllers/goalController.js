@@ -22,11 +22,11 @@ conn.once("open", () => {
 // create goal
 exports.addGoal = async (req, res) => {
     try {
-        const { title, description, userID } = req.body;
+        const { goalName, goalDescription, userID } = req.body;
         const goal = new Goal({
             users: [userID],
-            title: title,
-            description: description
+            goalName: goalName,
+            goalDescription: goalDescription
         });
         await goal.save();
         res.status(201).json({ goal });
@@ -68,6 +68,19 @@ exports.addImage = async (req, res) => {
     }
 };
 
+// add user to goal
+exports.addUser = async (req, res) => {
+    try {
+        const user = await User.findOne({ userID: req.params.userID });
+        const goal = await Goal.findOne({ goalID: req.params.goalID });
+        goal.users.push(user);
+        user.goals.push(goal);
+        res.status(200).json({ goal });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
 // remove user from goal
 
 exports.removeUser = async (req, res) => {
@@ -75,6 +88,7 @@ exports.removeUser = async (req, res) => {
         const user = await User.findOne({ userID: req.params.userID });
         const goal = await Goal.findOne({ goalID: req.params.goalID });
         goal.users.remove(user);
+        user.goals.remove(goal);
         res.status(200).json({ goal });
     } catch (err) {
         res.status(400).json({ message: err.message });
