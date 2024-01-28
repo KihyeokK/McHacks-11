@@ -26,12 +26,12 @@ app.use("/api", userRoutes);
 app.use("/api", fileUploadRoutes);
 
 mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("connected");
-    console.log(`Listening on port ${PORT}`);
-    app.listen(PORT);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .connect(MONGODB_URI)
+    .then(() => {
+        console.log("connected");
+        console.log(`Listening on port ${PORT}`);
+        app.listen(PORT);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
