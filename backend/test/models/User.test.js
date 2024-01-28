@@ -7,13 +7,13 @@ const path = require("path");
 const app = require("../../server.js");
 const request = require("supertest");
 
-import("chai").then((chai) => {
-    const expect = chai.expect;
-});
+// import("chai").then((chai) => {
+//     const expect = chai.expect;
+// });
 
-// Load environment variables from the specified .env file
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
-const MONGODB_URI = process.env.MONGODB_URI;
+// // Load environment variables from the specified .env file
+// dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+// const MONGODB_URI = process.env.MONGODB_URI;
 
 // Test suite
 // describe("User add Test, where numcompleted, groups, friends are default value", () => {

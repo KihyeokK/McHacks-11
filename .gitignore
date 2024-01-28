@@ -2,3 +2,5 @@
 /frontend/node_modules
 /backend/.env
 node_modules/
+/backend/uploads/
+/backend/JPEG_example_flower.jpg

@@ -22,10 +22,17 @@ exports.uploadFile = (req, res) => {
 
     stream.on("error", (err) => {
         console.log(err);
-        return res.status(500).json({ message: "Error uploading file" });
+        return res.status(500).json();
     });
-    stream.on("finish", () => {
-        return res.status(201).json({ message: "File uploaded successfully" });
+    stream.on("finish", async () => {
+        let returnedFile = await gfs.find({ _id: stream.id });
+        returnedFile.toArray().then((files, err) => {
+            if (!files || files.length === 0) {
+                return res.status(404).json({ message: "File not found" });
+            }
+            const file = files[0];
+            return res.status(200).json({ file: file });
+        });
     });
 };
 
