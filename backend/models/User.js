@@ -5,11 +5,11 @@ const userSchema = new Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    numCompletedCollages: { type: Number, required: true },
-    images: [
+    numCompletedCollages: { type: Number, required: true, default: 0 },
+    photots: [
         { type: mongoose.Schema.Types.ObjectId, ref: "Image", required: true }
     ],
-    goal: [
+    goals: [
         { type: mongoose.Schema.Types.ObjectId, ref: "Goal", required: true }
     ],
     friends: [
