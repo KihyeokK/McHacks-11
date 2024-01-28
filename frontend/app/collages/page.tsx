@@ -5,7 +5,7 @@ import BottomNavBar from "@/components/BottomNavBar";
 import Goal from "@/components/ui/Goal";
 
 export default function Collages() {
-    const [goals, setGoals] = useState([1,2 ]);
+    const [goals, setGoals] = useState([1,2]);
 
     return (
         <div className="w-[100%] h-[100vh] px-5 bg-slate-50 justify-center items-center">
