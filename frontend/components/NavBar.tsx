@@ -10,11 +10,10 @@ function AuthButton(){
         <Button onClick={() => signOut()}>Sign Out</Button>
       </>
     )
-  }
+  } 
   return(
     <>
-      Not signed in <br/>
-      <Button onClick={() => signIn()}>Sign In</Button>
+      <Button onClick={() => signIn()}>Social Log In</Button>
     </>
   );
 }

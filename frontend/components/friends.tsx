@@ -27,10 +27,12 @@ export function Friends() {
         </section>
         <section>
           <h2 className="mb-2 font-semibold text-gray-500">MY FRIENDS</h2>
-          <div className="flex items-center justify-between mb-4 text-black">
-            <span>username2</span>
-            <XIcon className="h-6 w-6 text-gray-500"/>
-          </div>
+          {isVisible && (
+            <div className="flex items-center justify-between mb-4 text-black">
+              <span>username2</span>
+                 <XIcon className="h-6 w-6 text-gray-500" onClick={() => setIsVisible(false)}/>
+            </div>
+          )}
         </section>
         <section>
           <h2 className="mb-2 font-semibold text-gray-500">SEARCH RESULTS</h2>
