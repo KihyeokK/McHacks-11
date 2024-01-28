@@ -54,7 +54,6 @@ exports.addFriend = async (req, res) => {
 };
 exports.removeFriend = async (req, res) => {
     try {
-        console.log(req.body);
         const friendID = req.body.friendID;
         const userID = req.body.userID;
         const friend = await User.findOne({ _id: friendID });
